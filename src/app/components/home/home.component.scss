@@ -1,0 +1,17 @@
+@import "../../../styles.scss";
+.header{
+  background-color: $grey-normal;
+  width: 100vw;
+  height: 72px;
+  padding:17px 47px 17px 47px;
+  .text{
+    color:$white-light;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38.4px;
+  }
+}
+
+.body{
+  padding:112px 48px 112px 48px;
+}
