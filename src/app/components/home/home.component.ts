@@ -53,20 +53,20 @@ export class HomeComponent implements OnInit {
     district: Elbase = new Elbase();
     village: Elbase = new Elbase();
     taiwan = [
+        // {
+        //     id: ['GuishanIsland'],
+        //     value: '龜山島'
+        // },
+        // {
+        //     id: ['GreenIsland'],
+        //     value: '綠島'
+        // },
+        // {
+        //     id: ['Lanyu'],
+        //     value: '蘭嶼'
+        // },
         {
-            id: ['GuishanIsland'],
-            value: '龜山島'
-        },
-        {
-            id: ['GreenIsland'],
-            value: '綠島'
-        },
-        {
-            id: ['Lanyu'],
-            value: '蘭嶼'
-        },
-        {
-            id: ['Yilan'],
+            id: ['Yilan', 'GuishanIsland'],
             value: '宜蘭縣'
         },
         {
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
             value: '花蓮縣'
         },
         {
-            id: ['Taitung'],
+            id: ['Taitung', 'GreenIsland', 'Lanyu'],
             value: '臺東縣'
         },
         {
@@ -109,10 +109,10 @@ export class HomeComponent implements OnInit {
             id: ['Penghu', 'Penghu2', 'Penghu3'],
             value: '澎湖縣'
         },
-        {
-            id: ['Liuqiu'],
-            value: '小琉球'
-        },
+        // {
+        //     id: ['Liuqiu'],
+        //     value: '小琉球'
+        // },
         {
             id: ['Miaoli'],
             value: '苗栗縣'
@@ -126,7 +126,7 @@ export class HomeComponent implements OnInit {
             value: '臺中市'
         },
         {
-            id: ['Pingtung'],
+            id: ['Pingtung', 'Liuqiu'],
             value: '屏東縣'
         },
         {
@@ -629,6 +629,15 @@ export class HomeComponent implements OnInit {
         this.citySelection.village = new Elbase();
         this.village = new Elbase();
         this.villageVoteData = [];
+        if (value.province == '') {
+            this.taiwan.forEach((x) => {
+                x.id.forEach((y) => {
+                    const element = document.getElementById(y) as HTMLElement;
+                    element?.classList.remove('active');
+                });
+            });
+            return;
+        }
         this.taiwan
             .find((x) => x.value == value.name)
             ?.id.forEach((y) => {
