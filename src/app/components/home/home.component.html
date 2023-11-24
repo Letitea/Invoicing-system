@@ -48,12 +48,16 @@
                         </div>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                        <div class="text">投票數</div>
-                        <div class="number">{{ voteNumber | number : '1.0-0' }}票</div>
+                        <div fxFlex="30" class="text">投票數</div>
+                        <div fxFlex="30" style="text-align: end" class="number">
+                            {{ voteNumber | number : '1.0-0' }}票
+                        </div>
                     </div>
                     <div fxLayout="row" style="padding-top: 10px" fxLayoutAlign="start center" fxLayoutGap="20px">
-                        <div class="text">無效票數</div>
-                        <div class="number">{{ invalidTicket | number : '1.0-0' }}票</div>
+                        <div fxFlex="30" class="text">無效票數</div>
+                        <div fxFlex="30" style="text-align: end" class="number">
+                            {{ invalidTicket | number : '1.0-0' }}票
+                        </div>
                     </div>
                     <div
                         fxLayout="row"
@@ -61,8 +65,10 @@
                         fxLayoutAlign="start center"
                         fxLayoutGap="20px"
                     >
-                        <div class="text">有效票數</div>
-                        <div class="number">{{ validTicket | number : '1.0-0' }}票</div>
+                        <div fxFlex="30" class="text">有效票數</div>
+                        <div fxFlex="30" style="text-align: end" class="number">
+                            {{ validTicket | number : '1.0-0' }}票
+                        </div>
                     </div>
                     <div fxLayout="row" fxLayoutAlign="start center">
                         <div fxFlex="80" style="height: 150px; width: 150px">
