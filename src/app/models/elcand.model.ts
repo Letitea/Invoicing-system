@@ -1,0 +1,18 @@
+export class Elcand {
+    province: string = ''; //"省市別"
+    countyCity: string = ''; //"縣市別"
+    constituency: string = ''; //"選區別"
+    townshipDistrict: string = ''; //"鄉鎮市區"
+    village: string = ''; //"村里別"
+    no: string = ''; //"號次"
+    name: string = ''; //"名字"
+    politicalPartyNo: string = ''; //"政黨代號"
+    sex: string = ''; //"性別"
+    birthDate: string = ''; //"出生日期"
+    age: string = ''; //"年齡"
+    birthPlace: string = ''; //"出生地"
+    educationalQualifications: string = ''; //"學歷"
+    incumbent: string = ''; //"現任"
+    mark: string = ''; //"當選註記"
+    assistant: string = ''; //"副手"
+}

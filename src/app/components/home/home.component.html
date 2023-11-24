@@ -1,15 +1,226 @@
 <div ngClass.gt-xs="fixed-top">
-  <nav class="header">
-    <div class="text" fxFlex fxLayoutAlign="start center">
-      {{year}} 開票地圖
-    </div>
-  </nav>
+    <nav fxLayout="row" class="header" fxLayoutAlign="space-between center">
+        <div class="text" fxLayoutAlign="start center">{{ year }} 開票地圖</div>
+        <!-- <mat-form-field  fxLayoutAlign="center end">
+      <mat-label>選擇年份</mat-label>
+      <mat-select [formControl]="year">
+        @for (year of years; track year) {
+          <mat-option [value]="year">{{year}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field> -->
+
+        <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>選擇年份</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                @for (year of years; track year) {
+                <button ngbDropdownItem (click)="changeYear(year)">{{ year }}</button>
+                }
+                <!-- <button ngbDropdownItem>Action - 1</button>
+				<button ngbDropdownItem>Another Action</button>
+				<button ngbDropdownItem>Something else is here</button> -->
+            </div>
+        </div>
+    </nav>
 </div>
 
-<div class="body" fxFlex fxLayoutGap="20px">
-  <mat-tab-group>
-    <mat-tab label="First"> Content 1 </mat-tab>
-    <mat-tab label="Second"> Content 2 </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
-  </mat-tab-group>
+<div class="body" fxFlexFill fxLayoutGap="20px">
+    <mat-tab-group fxFlexFill mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="onTabClick($event)">
+        <mat-tab fxFlex fxLayout="column" label="總統副總統大選">
+            <app-city-selection
+                #citySelection
+                [year]="year"
+                [category]="category"
+                (cityChange)="getCity($event)"
+                (districtChange)="getDistrict($event)"
+                (villageChange)="getvVillage($event)"
+            ></app-city-selection>
+            <div fxLayout="row" style="padding-top: 20px">
+                <div fxFlex="20" class="content-left" fxLayoutGap="20px">
+                    <div class="title">全國投票概況</div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <div fxFlex="80" style="height: 170px; width: 150px; padding-bottom: 15px">
+                            <div fxFlex echarts [options]="chartOption"></div>
+                        </div>
+                        <div fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+                            <div class="title">{{ voteNumberVoterNumber }}%</div>
+                            <div class="text">投票率</div>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                        <div class="text">投票數</div>
+                        <div class="number">{{ voteNumber | number : '1.0-0' }}票</div>
+                    </div>
+                    <div fxLayout="row" style="padding-top: 10px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                        <div class="text">無效票數</div>
+                        <div class="number">{{ invalidTicket | number : '1.0-0' }}票</div>
+                    </div>
+                    <div
+                        fxLayout="row"
+                        style="padding-top: 10px; padding-bottom: 20px"
+                        fxLayoutAlign="start center"
+                        fxLayoutGap="20px"
+                    >
+                        <div class="text">有效票數</div>
+                        <div class="number">{{ validTicket | number : '1.0-0' }}票</div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex="80" style="height: 150px; width: 150px">
+                            <div fxFlex echarts [options]="chartOption2"></div>
+                        </div>
+                    </div>
+
+                    <!-- 繞回圈 -->
+                    <div fxLayout="column" fxLayoutGap="15px">
+                        <div
+                            *ngFor="let item of nationalVoteData"
+                            fxLayout="row"
+                            fxLayoutGap="15px"
+                            fxLayoutAlign="start center"
+                        >
+                            <div fxFlex="10">
+                                <div [class]="item.colorClassName + '-icon'">
+                                    {{ item.politicalPartyNo }}
+                                </div>
+                            </div>
+                            <div fxFlex="50" [class]="item.colorClassName + '-border-right'" fxLayout="column">
+                                <div class="title2">{{ item.politicalPartyName }}</div>
+                                <div class="name">{{ item.name }} | {{ item.assistantName }}</div>
+                            </div>
+                            <div fxFlex="40" fxLayout="column">
+                                <div class="title2">{{ item.voteShare }}%</div>
+                                <div class="name">{{ item.voteNumber | number : '1.0-0' }} 票</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="60" fxLayoutAlign="center center">
+                    <!-- <img style="height: 100%" src="assets/taiwan.svg" /> -->
+                    <!-- <div innerHTML="assets/taiwan.svg"></div> -->
+                    <!-- <object type="image/svg+xml" data="assets/taiwan.svg" (loaded)="addHover()"></object> -->
+                    <div [inlineSVG]="'assets/taiwan.svg'" (onSVGInserted)="addHover()"></div>
+                </div>
+                <div fxFlex="20" class="content-right" fxLayout="column" fxLayoutGap="20px">
+                    <div *ngIf="city.name == ''" fxLayout="column" fxLayoutGap="20px">
+                        <div fxLayout="column" class="tip" fxLayoutGap="10px">
+                            <div fxLayout="row" fxLayoutGap="10px">
+                                <i class="bi bi-info-circle icon"></i>
+                                <div class="title">小提示</div>
+                            </div>
+                            <div style="padding-bottom: 40px" class="text">
+                                點擊選擇縣市、鄉鎮市區、村里，可查看選舉結果
+                            </div>
+                            <img style="height: 70px" src="assets/selectCity.svg" />
+                        </div>
+                        <div fxLayout="column" class="tip" fxLayoutGap="10px">
+                            <div fxLayout="row" fxLayoutGap="10px">
+                                <i class="bi bi-info-circle icon"></i>
+                                <div class="title">小提示</div>
+                            </div>
+                            <div style="padding-bottom: 40px" class="text">點擊地圖查看該縣市的選舉結果</div>
+                            <img style="height: 70px" src="assets/selectArea.svg" />
+                        </div>
+                    </div>
+                    <div *ngIf="city.name !== ''" class="DPP" fxLayout="column" fxLayoutGap="15px">
+                        <div class="title">
+                            {{ city.name }}
+                        </div>
+                        <!-- <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
+                            <div class="DPP-icon">3</div>
+                            <div class="DPP-border-right" fxLayout="column">
+                                <div class="title2">民主進步黨</div>
+                                <div class="name">蔡英文 | 賴清德</div>
+                            </div>
+                            <div fxLayout="column">
+                                <div class="title2">57.13%</div>
+                                <div class="name">8170231 票</div>
+                            </div>
+                        </div> -->
+                        <div fxLayout="column" fxLayoutGap="15px">
+                            <div
+                                *ngFor="let item of cityVoteData"
+                                fxLayout="row"
+                                fxLayoutGap="15px"
+                                fxLayoutAlign="start center"
+                            >
+                                <div fxFlex="10">
+                                    <div [class]="item.colorClassName + '-icon'">
+                                        {{ item.politicalPartyNo }}
+                                    </div>
+                                </div>
+                                <div fxFlex="50" [class]="item.colorClassName + '-border-right'" fxLayout="column">
+                                    <div class="title2">{{ item.politicalPartyName }}</div>
+                                    <div class="name">{{ item.name }} | {{ item.assistantName }}</div>
+                                </div>
+                                <div fxFlex="40" fxLayout="column">
+                                    <div class="title2">{{ item.voteShare }}%</div>
+                                    <div class="name">{{ item.voteNumber | number : '1.0-0' }} 票</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="district.name !== ''" class="DPP" fxLayout="column" fxLayoutGap="15px">
+                        <div class="title">
+                            {{ district.name }}
+                        </div>
+                        <div fxLayout="column" fxLayoutGap="15px">
+                            <div
+                                *ngFor="let item of districtVoteData"
+                                fxLayout="row"
+                                fxLayoutGap="15px"
+                                fxLayoutAlign="start center"
+                            >
+                                <div fxFlex="10">
+                                    <div [class]="item.colorClassName + '-icon'">
+                                        {{ item.politicalPartyNo }}
+                                    </div>
+                                </div>
+                                <div fxFlex="50" [class]="item.colorClassName + '-border-right'" fxLayout="column">
+                                    <div class="title2">{{ item.politicalPartyName }}</div>
+                                    <div class="name">{{ item.name }} | {{ item.assistantName }}</div>
+                                </div>
+                                <div fxFlex="40" fxLayout="column">
+                                    <div class="title2">{{ item.voteShare }}%</div>
+                                    <div class="name">{{ item.voteNumber | number : '1.0-0' }} 票</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="village.name !== ''" class="DPP" fxLayout="column" fxLayoutGap="15px">
+                        <div class="title">
+                            {{ village.name }}
+                        </div>
+                        <div fxLayout="column" fxLayoutGap="15px">
+                            <div
+                                *ngFor="let item of villageVoteData"
+                                fxLayout="row"
+                                fxLayoutGap="15px"
+                                fxLayoutAlign="start center"
+                            >
+                                <div fxFlex="10">
+                                    <div [class]="item.colorClassName + '-icon'">
+                                        {{ item.politicalPartyNo }}
+                                    </div>
+                                </div>
+                                <div fxFlex="50" [class]="item.colorClassName + '-border-right'" fxLayout="column">
+                                    <div class="title2">{{ item.politicalPartyName }}</div>
+                                    <div class="name">{{ item.name }} | {{ item.assistantName }}</div>
+                                </div>
+                                <div fxFlex="40" fxLayout="column">
+                                    <div class="title2">{{ item.voteShare }}%</div>
+                                    <div class="name">{{ item.voteNumber | number : '1.0-0' }} 票</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="區域立法委員">Content 2</mat-tab>
+        <mat-tab label="不分區立法委員">Content 3</mat-tab>
+        <mat-tab label="山地立法委員">Content 4</mat-tab>
+        <mat-tab label="平地立法委員">Content 5</mat-tab>
+    </mat-tab-group>
 </div>
