@@ -1,0 +1,22 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.formatOnSave": false //Css文件取消儲存時自動格式化
+  },
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "prettier.printWidth": 120,
+  "prettier.trailingComma": "none",
+  "prettier.tabWidth": 4,
+  "eslint.codeActionsOnSave.rules": null,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
