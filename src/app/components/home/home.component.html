@@ -1,6 +1,10 @@
 <div ngClass.gt-xs="fixed-top">
     <nav fxLayout="row" class="header" fxLayoutAlign="space-between center">
-        <div class="text" fxLayoutAlign="start center">{{ year }} 總統立委開票全臺地圖</div>
+        <div fxLayout="row">
+            <img style="height: 40px; padding-right: 15px" src="assets/taiwan.svg" />
+            <div class="text" fxLayoutAlign="start center">{{ year }} 總統立委開票全臺地圖</div>
+        </div>
+
         <!-- <mat-form-field  fxLayoutAlign="center end">
       <mat-label>選擇年份</mat-label>
       <mat-select [formControl]="year">
