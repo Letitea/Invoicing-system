@@ -424,7 +424,7 @@ export class HomeComponent implements OnInit {
                 if (x.colorClassName !== '') {
                     x.id.forEach((y) => {
                         const element = document.getElementById(y) as HTMLElement;
-                        element?.classList.remove('noSelectArea');
+                        element.classList.value = '';
                         element?.classList.add(x.colorClassName);
                     });
                 }
@@ -747,7 +747,7 @@ export class HomeComponent implements OnInit {
                     //x.constituency == value.constituency &&
                     x.townshipDistrict == value.townshipDistrict &&
                     x.village == value.village &&
-                    x.voteStation == '0000'
+                    Number(x.voteStation) == 0
             )
             .forEach((y) => {
                 let tmp = this.tidyCandData.find((z) => z.candidateNo == y.candidateNo);
