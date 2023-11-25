@@ -3,7 +3,7 @@ $DPP: $green-normal;
 $KMT: $blue-normal;
 $PFP: $brown-normal;
 
-@media (min-width: 400px) {
+@media (min-width: 600px) {
     .header {
         background-color: $grey-normal;
         width: 100vw;
@@ -22,7 +22,7 @@ $PFP: $brown-normal;
         height: 100%;
     }
 }
-@media (max-width: 400px) {
+@media (max-width: 600px) {
     .header {
         background-color: $grey-normal;
         width: 100vw;
