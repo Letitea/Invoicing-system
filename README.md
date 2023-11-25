@@ -1,27 +1,36 @@
-# InvoicingSystem
+# 作品說明
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
+[The F2E 第二關 - 總統即時開票全台地圖 比賽內容介紹](https://chalk-freedom-ec6.notion.site/814fe6ddc85f47b2964aceec422ad4cb)  
+[UI設計參考](https://www.figma.com/file/Caoi6yMxwbeKMneS5tsCt6/%E9%96%8B%E7%A5%A8%E5%9C%B0%E5%9C%96?type=design&node-id=66%3A3043&mode=design&t=5N4mw68gAfagODaM-1) ---> 感謝 Yuni 設計的前端介面     
+[Demo](https://letitea.github.io/invoicing-system/)
 
-## Development server
+## 系統說明
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+專案運行方式  
+step 1. clone code  
+step 2. npm i  
+step 3. npm run start  
 
-## Code scaffolding
+Node.js 版本 20.9.0  
+Angular Cli 版本 17.0.3
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 資料夾說明
+src > app > components 放置系統畫面所需之component  
+src > app > models 放置定義的model  
+src > app > services 放置抓取json之程式  
+src > assets 放置文字檔、圖檔  
 
-## Build
+## 使用技術
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* Angular Cli
+* Node.js
+* HTML
+* SCSS
 
-## Running unit tests
+## 第三方服務
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+* Bootstrap
+* ECharts
+* lodash
+* ng-inline-svg-2
+* rxjs
