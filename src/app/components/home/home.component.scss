@@ -3,25 +3,49 @@ $DPP: $green-normal;
 $KMT: $blue-normal;
 $PFP: $brown-normal;
 
-.header {
-    background-color: $grey-normal;
-    width: 100vw;
-    height: 72px;
-    padding: 17px 47px 17px 47px;
-    .text {
-        color: $white-light;
-        font-weight: 600;
-        font-size: 32px;
-        line-height: 38.4px;
+@media (min-width: 400px) {
+    .header {
+        background-color: $grey-normal;
+        width: 100vw;
+        height: 72px;
+        padding: 17px 47px 17px 47px;
+        .text {
+            color: $white-light;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 38.4px;
+        }
+    }
+    .body {
+        padding: 112px 48px 20px 48px;
+        width: 100%;
+        height: 100%;
     }
 }
-
-.body {
-    padding: 112px 48px 20px 48px;
-    width: 100%;
-    height: 100%;
+@media (max-width: 400px) {
+    .header {
+        background-color: $grey-normal;
+        width: 100vw;
+        height: 72px;
+        padding: 15px 25px 15px 25px;
+        .text {
+            color: $white-light;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19.2px;
+        }
+    }
+    .body {
+        padding: 30px 25px 20px 25px;
+        width: 100%;
+        height: calc(100% - 72px);
+    }
 }
-
+:host ::ng-deep .svgwidth {
+    svg {
+        width: 100%;
+    }
+}
 .content-left {
     border-radius: 8px;
     padding: 20px;

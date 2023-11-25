@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     // @ViewChild('citySelection') citySelection!: CitySelectionComponent;
     // @ViewChild('citySelection', { static: false }) citySelection!: ElementRef<HTMLElement>;
     // @ViewChild('citySelection', { static: false }) citySelection!: CitySelectionComponent;
-
+    contentLeftShow = false;
     year = 2020;
     years = [2016, 2020];
     category = 'president';

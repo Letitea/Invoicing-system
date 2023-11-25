@@ -15,7 +15,15 @@
     </mat-form-field> -->
 
         <div ngbDropdown class="d-inline-block">
-            <button type="button" class="btn btn-dark" id="dropdownBasic1" ngbDropdownToggle>選擇年份</button>
+            <button
+                type="button"
+                class="btn btn-dark"
+                [ngClass.xs]="{ 'btn-sm': true }"
+                id="dropdownBasic1"
+                ngbDropdownToggle
+            >
+                選擇年份
+            </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 @for (year of years; track year) {
                 <button ngbDropdownItem (click)="changeYear(year)">{{ year }}</button>
@@ -28,7 +36,7 @@
     </nav>
 </div>
 
-<div class="body" fxFlexFill fxLayoutGap="20px">
+<div class="body" fxLayoutGap="20px">
     <mat-tab-group fxFlexFill mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="onTabClick($event)">
         <mat-tab fxFlex fxLayout="column" label="總統副總統大選">
             <app-city-selection
@@ -39,10 +47,31 @@
                 (districtChange)="getDistrict($event)"
                 (villageChange)="getvVillage($event)"
             ></app-city-selection>
-            <div fxLayout="row" style="padding-top: 20px">
-                <div fxFlex="20" class="content-left" fxLayoutGap="20px">
-                    <div class="title">全國投票概況</div>
-                    <div fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="row wrap" style="padding-top: 20px">
+                <div fxFlex.gt-xs="20" fxFlex.xs="100" class="content-left" fxLayoutGap="20px">
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div class="title">全國投票概況</div>
+                        <div fxHide fxShow.xs>
+                            <i
+                                *ngIf="contentLeftShow"
+                                class="bi bi-chevron-compact-down"
+                                (click)="contentLeftShow = false"
+                            ></i>
+                            <i
+                                *ngIf="!contentLeftShow"
+                                class="bi bi-chevron-compact-right"
+                                (click)="contentLeftShow = true"
+                            ></i>
+                        </div>
+                    </div>
+
+                    <div
+                        fxHide
+                        [fxShow.gt-xs]="true"
+                        [fxShow.xs]="contentLeftShow"
+                        fxLayout="row"
+                        fxLayoutAlign="center center"
+                    >
                         <div fxFlex="80" style="height: 170px; width: 150px; padding-bottom: 15px">
                             <div fxFlex echarts [options]="chartOption"></div>
                         </div>
@@ -51,19 +80,37 @@
                             <div class="text">投票率</div>
                         </div>
                     </div>
-                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                    <div
+                        fxHide
+                        [fxShow.gt-xs]="true"
+                        [fxShow.xs]="contentLeftShow"
+                        fxLayout="row"
+                        fxLayoutAlign="start center"
+                        fxLayoutGap="20px"
+                    >
                         <div fxFlex="30" class="text">投票數</div>
                         <div fxFlex="30" style="text-align: end" class="number">
                             {{ voteNumber | number : '1.0-0' }}票
                         </div>
                     </div>
-                    <div fxLayout="row" style="padding-top: 10px" fxLayoutAlign="start center" fxLayoutGap="20px">
+                    <div
+                        fxHide
+                        [fxShow.gt-xs]="true"
+                        [fxShow.xs]="contentLeftShow"
+                        fxLayout="row"
+                        style="padding-top: 10px"
+                        fxLayoutAlign="start center"
+                        fxLayoutGap="20px"
+                    >
                         <div fxFlex="30" class="text">無效票數</div>
                         <div fxFlex="30" style="text-align: end" class="number">
                             {{ invalidTicket | number : '1.0-0' }}票
                         </div>
                     </div>
                     <div
+                        fxHide
+                        [fxShow.gt-xs]="true"
+                        [fxShow.xs]="contentLeftShow"
                         fxLayout="row"
                         style="padding-top: 10px; padding-bottom: 20px"
                         fxLayoutAlign="start center"
@@ -74,14 +121,26 @@
                             {{ validTicket | number : '1.0-0' }}票
                         </div>
                     </div>
-                    <div fxLayout="row" fxLayoutAlign="start center">
+                    <div
+                        fxHide
+                        [fxShow.gt-xs]="true"
+                        [fxShow.xs]="contentLeftShow"
+                        fxLayout="row"
+                        fxLayoutAlign="start center"
+                    >
                         <div fxFlex="80" style="height: 150px; width: 150px">
                             <div fxFlex echarts [options]="chartOption2"></div>
                         </div>
                     </div>
 
                     <!-- 繞回圈 -->
-                    <div fxLayout="column" fxLayoutGap="15px">
+                    <div
+                        fxHide
+                        [fxShow.gt-xs]="true"
+                        [fxShow.xs]="contentLeftShow"
+                        fxLayout="column"
+                        fxLayoutGap="15px"
+                    >
                         <div
                             *ngFor="let item of nationalVoteData"
                             fxLayout="row"
@@ -104,13 +163,13 @@
                         </div>
                     </div>
                 </div>
-                <div fxFlex="60" fxLayoutAlign="center center">
+                <div fxFlex.gt-xs="60" fxFlex.xs="100" fxLayoutAlign="center center">
                     <!-- <img style="height: 100%" src="assets/taiwan.svg" /> -->
                     <!-- <div innerHTML="assets/taiwan.svg"></div> -->
                     <!-- <object type="image/svg+xml" data="assets/taiwan.svg" (loaded)="addHover()"></object> -->
-                    <div [inlineSVG]="'assets/taiwan.svg'" (onSVGInserted)="addHover()"></div>
+                    <div class="svgwidth" [inlineSVG]="'assets/taiwan.svg'" (onSVGInserted)="addHover()"></div>
                 </div>
-                <div fxFlex="20" class="content-right" fxLayout="column" fxLayoutGap="20px">
+                <div fxFlex.gt-xs="20" fxFlex.xs="100" class="content-right" fxLayout="column" fxLayoutGap="20px">
                     <div *ngIf="city.name == ''" fxLayout="column" fxLayoutGap="20px">
                         <div fxLayout="column" class="tip" fxLayoutGap="10px">
                             <div fxLayout="row" fxLayoutGap="10px">

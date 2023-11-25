@@ -1,38 +1,41 @@
+<form
+    style="padding-top: 20px"
+    fxLayoutAlign="start center"
+    [formGroup]="post"
+    (ngSubmit)="createPost()"
+    fxLayout="row wrap"
+    fxLayoutGap="20px"
+>
+    <mat-form-field fxLayout="column" fxFlex.gt-xs="15" fxFlex.xs="40" fxLayoutAlign="center end">
+        <mat-label>選擇縣市</mat-label>
+        <mat-select fxFlex formControlName="city" [(value)]="city" (selectionChange)="changeCity(city)">
+            @for (city of citys; track city) {
+            <mat-option [value]="city">{{ city.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
 
-<form style="padding-top: 20px;" fxLayoutAlign="start center" [formGroup]="post" (ngSubmit)="createPost()" fxLayout="row" fxLayoutGap="20px">
-  <mat-form-field fxLayout="column" fxFlex="15" fxLayoutAlign="center end">
-    <mat-label>選擇縣市</mat-label>
-    <mat-select fxFlex formControlName="city" [(value)]="city" (selectionChange)="changeCity(city)">
-      @for (city of citys; track city) {
-        <mat-option [value]="city">{{city.name}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field fxLayout="column" fxFlex.gt-xs="15" fxFlex.xs="45" fxLayoutAlign="center end">
+        <mat-label>選擇鄉鎮市區</mat-label>
+        <mat-select formControlName="district" [(value)]="district" (selectionChange)="changeDistrict(district)">
+            @for (district of districts; track district) {
+            <mat-option [value]="district">{{ district.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
 
-  <mat-form-field fxLayout="column" fxFlex="15" fxLayoutAlign="center end">
-    <mat-label>選擇鄉鎮市區</mat-label>
-    <mat-select formControlName="district" [(value)]="district" (selectionChange)="changeDistrict(district)">
-      @for (district of districts; track district) {
-        <mat-option [value]="district">{{district.name}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field fxLayout="column" fxFlex.gt-xs="15" fxFlex.xs="40" fxLayoutAlign="center end">
+        <mat-label>選擇村里</mat-label>
+        <mat-select formControlName="village" [(value)]="village" (selectionChange)="changevVillage(village)">
+            @for (village of villages; track village) {
+            <mat-option [value]="village">{{ village.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+    <div fxFlexFill fxFlex.gt-xs="10" fxFlex.xs="30" fxLayoutAlign="start center">
+        <button type="reset" class="btn btn-dark" (click)="clean()">清除<i class="bi bi-arrow-clockwise"></i></button>
+    </div>
 
-  <mat-form-field fxLayout="column" fxFlex="15" fxLayoutAlign="center end">
-    <mat-label>選擇村里</mat-label>
-    <mat-select formControlName="village" [(value)]="village" (selectionChange)="changevVillage(village)">
-      @for (village of villages; track village) {
-        <mat-option [value]="village">{{village.name}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  <div fxFlexFill fxFlex="10" fxLayoutAlign="start center">
-    <button type="reset" class="btn btn-dark" (click)="clean()">
-      清除<i class="bi bi-arrow-clockwise"></i>
-      </button>
-  </div>
-
-  <!-- type="submit"
+    <!-- type="submit"
   [disabled]="post.invalid" -->
 </form>
-
