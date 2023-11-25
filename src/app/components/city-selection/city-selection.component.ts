@@ -12,17 +12,9 @@ import { CitySelectionService } from 'src/app/services/city-selection.service';
 })
 export class CitySelectionComponent implements OnInit {
     post = this.formBuilder.group({
-        city: this.formBuilder.control(
-            ''
-            //Validators.required
-        ),
-        district: this.formBuilder.control(
-            ''
-            //Validators.required
-        ),
-        village: this.formBuilder.control('', [
-            //Validators.required
-        ])
+        city: this.formBuilder.control(''),
+        district: this.formBuilder.control(''),
+        village: this.formBuilder.control('', [])
     });
     @Input() year: number = 2020;
     @Input() category: string = 'president';
@@ -50,11 +42,6 @@ export class CitySelectionComponent implements OnInit {
                         x.village == '0000' &&
                         x.province !== '00'
                 );
-
-                // thiss.citys=value.filter(x=>x.縣市=='000'&&x.選區=='00'&&x.鄉鎮市區=='000'&&x.村里=='0000');
-                // thiss.citys.push('測試1');
-                // thiss.citys.push('測試2');
-                // console.log('Observable emitted the next value: ' + value);
             },
             error(err) {
                 console.error('Observable emitted an error: ' + err);
@@ -65,22 +52,8 @@ export class CitySelectionComponent implements OnInit {
         });
     }
 
-    createPost() {
-        // const article = {
-        //   title: this.post.value.title || '',
-        //   description: this.post.value.description || '',
-        //   body: this.post.value.body || '',
-        //   tagList: [...(this.post.value.tags || [])] as string[],
-        //   // tagList: <Array<string>>(
-        //   //   (this.post.value.tags || []).filter((tag) => !!tag)
-        //   // ),
-        // };
-        // this.postService.createArticle(article).subscribe(() => {
-        //   this.router.navigate(['/']);
-        // });
-    }
+    createPost() {}
     changeCity(value: Elbase) {
-        // const tmp=this.allElbaseData.find(x=>x.名稱==value.名稱);
         this.districts = this.allElbaseData.filter(
             (x) =>
                 x.village == '0000' &&
@@ -93,7 +66,6 @@ export class CitySelectionComponent implements OnInit {
     }
 
     changeDistrict(value: Elbase) {
-        // const tmp=this.allElbaseData.find(x=>x.名稱==value.名稱);
         if (this.city == new Elbase()) {
             return;
         }

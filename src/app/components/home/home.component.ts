@@ -1,17 +1,6 @@
 import { Elprof } from './../../models/elprof.model';
 import { DOCUMENT } from '@angular/common';
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    Inject,
-    AfterContentInit,
-    AfterViewInit,
-    ViewChild,
-    QueryList,
-    ElementRef
-} from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { Elbase } from 'src/app/models/elbase.model';
 import { CitySelectionService } from 'src/app/services/city-selection.service';
@@ -32,12 +21,6 @@ import { TaiwanMap } from 'src/app/models/taiwan-map';
 export class HomeComponent implements OnInit {
     @ViewChild(CitySelectionComponent)
     private citySelection!: CitySelectionComponent;
-    // @ViewChild('citySelection') citySelection!: CitySelectionComponent;
-    // @ViewChild(CitySelectionComponent, { static: true }) citySelection: CitySelectionComponent;
-    // year= new FormControl(2020);
-    // @ViewChild('citySelection') citySelection!: CitySelectionComponent;
-    // @ViewChild('citySelection', { static: false }) citySelection!: ElementRef<HTMLElement>;
-    // @ViewChild('citySelection', { static: false }) citySelection!: CitySelectionComponent;
     contentLeftShow = false;
     year = 2020;
     years = [2016, 2020];
@@ -53,18 +36,6 @@ export class HomeComponent implements OnInit {
     district: Elbase = new Elbase();
     village: Elbase = new Elbase();
     taiwan = [
-        // {
-        //     id: ['GuishanIsland'],
-        //     value: '龜山島'
-        // },
-        // {
-        //     id: ['GreenIsland'],
-        //     value: '綠島'
-        // },
-        // {
-        //     id: ['Lanyu'],
-        //     value: '蘭嶼'
-        // },
         {
             id: ['Yilan', 'GuishanIsland'],
             value: '宜蘭縣'
@@ -109,10 +80,6 @@ export class HomeComponent implements OnInit {
             id: ['Penghu', 'Penghu2', 'Penghu3'],
             value: '澎湖縣'
         },
-        // {
-        //     id: ['Liuqiu'],
-        //     value: '小琉球'
-        // },
         {
             id: ['Miaoli'],
             value: '苗栗縣'
@@ -213,15 +180,10 @@ export class HomeComponent implements OnInit {
     villageVoteData: NationalVote[] = []; //村里各政黨投票率 投票數
     villageVoteDataGroup = {};
     tidyCandData: TidyCand[] = [];
-    // tmpp: any = [];
     chartOption2: EChartsOption = {
         tooltip: {
             trigger: 'item'
         },
-        // legend: {
-        //   top: '5%',
-        //   left: 'center'
-        // },
         series: [
             {
                 name: '',
@@ -249,10 +211,6 @@ export class HomeComponent implements OnInit {
     };
 
     constructor(@Inject(DOCUMENT) document: Document, private citySelectionService: CitySelectionService) {
-        // this.taiwan.forEach((x) => {
-        //     // as HTMLElement
-        //     document.getElementById(x.id)?.classList.add('noSelectArea');
-        // });
         this.getAllJSONFile();
     }
     ngOnInit(): void {}
@@ -283,80 +241,6 @@ export class HomeComponent implements OnInit {
             });
         });
     }
-    // getProf() {
-    //     const thiss = this;
-    //     this.citySelectionService.getElprof(this.year, this.category).subscribe({
-    //         next(value: Elprof[]) {
-    //             thiss.allElprofData = value;
-    //             //當縣市未選擇時取全國的，當縣市 鄉鎮市區 村里有選擇時只顯示當下範圍資料
-    //             let tmp = new Elprof();
-    //             const tmp2 = value.find(
-    //                 (x) =>
-    //                     x.province == '00' &&
-    //                     x.countyCity == '000' &&
-    //                     x.constituency == '00' &&
-    //                     x.townshipDistrict == '000' &&
-    //                     x.village == '0000'
-    //             );
-    //             tmp = tmp2 ? tmp2 : tmp;
-    //             thiss.voteNumberVoterNumber = tmp?.voteNumberVoterNumber;
-    //             thiss.voteNumber = tmp?.voteNumber;
-    //             thiss.validTicket = tmp?.validTicket;
-    //             thiss.invalidTicket = tmp?.invalidTicket;
-    //         },
-    //         error(err) {
-    //             console.error('Observable emitted an error: ' + err);
-    //         },
-    //         complete() {
-    //             console.log('Observable emitted the complete notification');
-    //         }
-    //     });
-    // }
-
-    // getPaty() {
-    //     const thiss = this;
-    //     this.citySelectionService.getElpaty(this.year, this.category).subscribe({
-    //         next(value: Elpaty[]) {
-    //             thiss.allElpatyData = value;
-    //         },
-    //         error(err) {
-    //             console.error('Observable emitted an error: ' + err);
-    //         },
-    //         complete() {
-    //             console.log('Observable emitted the complete notification');
-    //         }
-    //     });
-    // }
-
-    // getCand() {
-    //     const thiss = this;
-    //     this.citySelectionService.getElcand(this.year, this.category).subscribe({
-    //         next(value: Elcand[]) {
-    //             thiss.allElcandData = value;
-    //         },
-    //         error(err) {
-    //             console.error('Observable emitted an error: ' + err);
-    //         },
-    //         complete() {
-    //             console.log('Observable emitted the complete notification');
-    //         }
-    //     });
-    // }
-
-    // getCtks() {
-    //     const thiss = this;
-    //     this.citySelectionService.getElctks(this.year, this.category).subscribe({
-    //         next(value: Elctks[]) {
-    //             thiss.allElctksData = value;
-    //         },
-    //         error(err) {
-    //             console.error('Observable emitted an error: ' + err);
-    //         },
-    //         complete() {
-    //             console.log('Observable emitted the complete notification');
-    //         }
-    //     });
-    // }
 
     getAllJSONFile() {
         const getProf = this.citySelectionService.getElprof(this.year, this.category);
@@ -402,7 +286,6 @@ export class HomeComponent implements OnInit {
                         y.village == tt.village
                 );
                 aa = aa ? aa : [];
-                // let ee = _.maxBy(aa, 'voteNumber')?.candidateNo;
                 let ee = _.sortBy(aa, [
                     function (o) {
                         return Number(o.voteNumber);
@@ -493,12 +376,6 @@ export class HomeComponent implements OnInit {
                 }
             ]).reverse();
 
-            // const tmpp = this.nationalVoteData.map((x) => {
-            //     return { value: Number(x.voteNumber), name: x.politicalPartyName };
-            // });
-            // this.tmpp = this.nationalVoteData.map((x) => {
-            //     return { value: Number(x.voteNumber), name: x.politicalPartyName };
-            // });
             let tmpp: any = this.nationalVoteData.map((x) => {
                 return this.politicalPartyColorMapping.find((y) => y.name == x.politicalPartyName)?.color;
             });
@@ -508,10 +385,6 @@ export class HomeComponent implements OnInit {
                 tooltip: {
                     trigger: 'item'
                 },
-                // legend: {
-                //   top: '5%',
-                //   left: 'center'
-                // },
                 series: [
                     {
                         name: '',
@@ -539,31 +412,6 @@ export class HomeComponent implements OnInit {
                 ],
                 color: tmpp
             };
-
-            // this.chartOption2.series = [
-            //     {
-            //         name: '',
-            //         type: 'pie',
-            //         radius: ['40%', '70%'],
-            //         avoidLabelOverlap: false,
-            //         label: {
-            //             show: false,
-            //             position: 'center'
-            //         },
-            //         emphasis: {
-            //             label: {
-            //                 show: true,
-            //                 fontSize: 40,
-            //                 fontWeight: 'bold'
-            //             }
-            //         },
-            //         labelLine: {
-            //             show: false
-            //         },
-            //         color: [],
-            //         data: [tmpp]
-            //     }
-            // ];
         });
     }
 
@@ -590,13 +438,9 @@ export class HomeComponent implements OnInit {
         const thiss = this;
         this.taiwan.forEach((x) => {
             x.id.forEach((y) => {
-                // as HTMLElement
                 const element = document.getElementById(y) as HTMLElement;
                 element?.classList.add('noSelectArea');
                 element?.addEventListener('click', function (e: MouseEvent) {
-                    // element.getElementsByClassName('noSelectArea')[0].add('active');
-                    // element.classList.add('active');
-                    // this.focus();
                     thiss.taiwan.forEach((x) => {
                         x.id.forEach((y) => {
                             const element = document.getElementById(y) as HTMLElement;
@@ -653,7 +497,6 @@ export class HomeComponent implements OnInit {
                 (x) =>
                     x.province == value.province &&
                     x.countyCity == value.countyCity &&
-                    // x.constituency == value.constituency &&
                     x.townshipDistrict == value.townshipDistrict &&
                     x.village == value.village
             )
@@ -700,7 +543,6 @@ export class HomeComponent implements OnInit {
                 (x) =>
                     x.province == value.province &&
                     x.countyCity == value.countyCity &&
-                    // x.constituency == value.constituency &&
                     x.townshipDistrict == value.townshipDistrict &&
                     x.village == value.village
             )
@@ -744,7 +586,6 @@ export class HomeComponent implements OnInit {
                 (x) =>
                     x.province == value.province &&
                     x.countyCity == value.countyCity &&
-                    //x.constituency == value.constituency &&
                     x.townshipDistrict == value.townshipDistrict &&
                     x.village == value.village &&
                     Number(x.voteStation) == 0
@@ -779,39 +620,5 @@ export class HomeComponent implements OnInit {
                 return Number(o.voteShare);
             }
         ]).reverse();
-        //依選區group
-        // this.villageVoteDataGroup = _.groupBy(this.villageVoteData, 'voteStation');
-
-        // const multiGroupBy: any = (seq: any, keys: any) => {
-        //     if (!keys.length) return seq;
-        //     var first = keys[0];
-        //     var rest = keys.slice(1);
-        //     return _.mapValues(_.groupBy(seq, first), function (value) {
-        //         return multiGroupBy(value, rest);
-        //     });
-        // };
-        // this.villageVoteDataGroup = _.groupBy(
-        //     this.villageVoteData,
-        //     (item) =>
-        //         `"${item.province}+${item.countyCity}+${item.constituency}+${item.townshipDistrict}+${item.village}"`
-        // );
-        // this.villageVoteDataGroup = multiGroupBy(this.villageVoteData, [
-        //     'province',
-        //     'countyCity',
-        //     'constituency',
-        //     'townshipDistrict',
-        //     'village',
-        //     'voteStation'
-        // ]);
-        // Object.keys(this.villageVoteDataGroup).forEach(x=>{
-        //   this.villageVoteDataGroup =this.villageVoteDataGroup[x];
-        // })
-        // let lastkey=Object.keys(this.villageVoteDataGroup)[0];
-
-        //   this.villageVoteDataGroup = this.villageVoteDataGroup[lastkey];
-
-        // this.villageVoteDataGroup = this.villageVoteDataGroup[Object.keys(this.villageVoteDataGroup).pop()];
-        // this.villageVoteDataGroup = this.villageVoteDataGroup[Object.keys(this.villageVoteDataGroup).pop()];
-        // this.villageVoteDataGroup = this.villageVoteDataGroup[Object.keys(this.villageVoteDataGroup).pop()];
     }
 }

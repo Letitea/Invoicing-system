@@ -4,16 +4,6 @@
             <img style="height: 40px; padding-right: 15px" src="assets/taiwan.svg" />
             <div class="text" fxLayoutAlign="start center">{{ year }} 總統立委開票全臺地圖</div>
         </div>
-
-        <!-- <mat-form-field  fxLayoutAlign="center end">
-      <mat-label>選擇年份</mat-label>
-      <mat-select [formControl]="year">
-        @for (year of years; track year) {
-          <mat-option [value]="year">{{year}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field> -->
-
         <div ngbDropdown class="d-inline-block">
             <button
                 type="button"
@@ -28,9 +18,6 @@
                 @for (year of years; track year) {
                 <button ngbDropdownItem (click)="changeYear(year)">{{ year }}</button>
                 }
-                <!-- <button ngbDropdownItem>Action - 1</button>
-				<button ngbDropdownItem>Another Action</button>
-				<button ngbDropdownItem>Something else is here</button> -->
             </div>
         </div>
     </nav>
@@ -132,8 +119,6 @@
                             <div fxFlex echarts [options]="chartOption2"></div>
                         </div>
                     </div>
-
-                    <!-- 繞回圈 -->
                     <div
                         fxHide
                         [fxShow.gt-xs]="true"
@@ -164,9 +149,6 @@
                     </div>
                 </div>
                 <div fxFlex.gt-xs="60" fxFlex.xs="100" fxLayoutAlign="center center">
-                    <!-- <img style="height: 100%" src="assets/taiwan.svg" /> -->
-                    <!-- <div innerHTML="assets/taiwan.svg"></div> -->
-                    <!-- <object type="image/svg+xml" data="assets/taiwan.svg" (loaded)="addHover()"></object> -->
                     <div class="svgwidth" [inlineSVG]="'assets/taiwan.svg'" (onSVGInserted)="addHover()"></div>
                 </div>
                 <div fxFlex.gt-xs="20" fxFlex.xs="100" class="content-right" fxLayout="column" fxLayoutGap="20px">
@@ -194,17 +176,6 @@
                         <div class="title">
                             {{ city.name }}
                         </div>
-                        <!-- <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
-                            <div class="DPP-icon">3</div>
-                            <div class="DPP-border-right" fxLayout="column">
-                                <div class="title2">民主進步黨</div>
-                                <div class="name">蔡英文 | 賴清德</div>
-                            </div>
-                            <div fxLayout="column">
-                                <div class="title2">57.13%</div>
-                                <div class="name">8170231 票</div>
-                            </div>
-                        </div> -->
                         <div fxLayout="column" fxLayoutGap="15px">
                             <div
                                 *ngFor="let item of cityVoteData"
