@@ -17,8 +17,8 @@ Angular Cli 版本 17.0.3
 ## 資料夾說明
 src > app > components 放置系統畫面所需之component  
 src > app > models 放置定義的model  
-src > app > services 放置抓取json之程式  
-src > assets 放置文字檔、圖檔  
+src > app > services 放置抓取JSON之程式  
+src > assets 放置文字檔、圖檔、JSON檔  
 
 ## 使用技術
 
@@ -34,3 +34,5 @@ src > assets 放置文字檔、圖檔
 * lodash
 * ng-inline-svg-2
 * rxjs
+* Angular material
+* flex-layout
